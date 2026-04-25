@@ -1,15 +1,19 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        border: "oklch(var(--border) / <alpha-value>)",
+        background: "oklch(var(--background) / <alpha-value>)",
+        foreground: "oklch(var(--foreground) / <alpha-value>)",
+        ring: "oklch(var(--ring) / <alpha-value>)",
+
+        // ✅ ADD THESE (this fixes your error)
+        muted: "oklch(var(--muted) / <alpha-value>)",
+        "muted-foreground": "oklch(var(--muted-foreground) / <alpha-value>)",
+        primary: "oklch(var(--primary) / <alpha-value>)",
+        "primary-foreground":
+          "oklch(var(--primary-foreground) / <alpha-value>)",
       },
     },
   },
