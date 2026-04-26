@@ -212,7 +212,7 @@ function AdminUsersContent() {
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="All Roles" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background py-2">
                   <SelectItem value="all">All Roles</SelectItem>
                   <SelectItem value="user">Users</SelectItem>
                   <SelectItem value="mod">Moderators</SelectItem>
@@ -315,7 +315,7 @@ function AdminUsersContent() {
                               <SelectTrigger className="w-[130px] h-8 text-xs">
                                 <SelectValue />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="bg-background py-2">
                                 <SelectItem value="user">User</SelectItem>
                                 <SelectItem value="mod">Moderator</SelectItem>
                                 <SelectItem value="admin">Admin</SelectItem>
@@ -475,7 +475,7 @@ function AdminUsersContent() {
 
       {/* Delete Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-background">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />

@@ -283,7 +283,7 @@ function AdminOrdersContent() {
                               <SelectTrigger className="w-[140px] h-8 text-xs">
                                 <SelectValue />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="bg-background py-2">
                                 {statusOptions.map((status) => (
                                   <SelectItem key={status} value={status}>
                                     {status}
@@ -454,7 +454,7 @@ function AdminOrdersContent() {
 
       {/* Order Detail Dialog */}
       <Dialog open={showDetail} onOpenChange={setShowDetail}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] bg-background overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Package className="h-5 w-5 text-primary" />
@@ -605,7 +605,7 @@ function AdminOrdersContent() {
                   <SelectTrigger className="w-[180px]">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background">
                     {statusOptions.map((status) => (
                       <SelectItem key={status} value={status}>
                         {status}

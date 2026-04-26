@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/store/api/productApi";
 import { useGetCategoriesQuery } from "@/store/api/categoryApi";
@@ -39,6 +39,7 @@ export default function ItemsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const isInitialMount = useRef(true);
 
   // Filter states from URL params
   const [filters, setFilters] = useState({
@@ -52,8 +53,11 @@ export default function ItemsPage() {
     page: parseInt(searchParams.get("page")) || 1,
   });
 
-  // Search input (debounced)
+  // Debounced input states
   const [searchInput, setSearchInput] = useState(filters.search);
+  const [minPriceInput, setMinPriceInput] = useState(filters.minPrice);
+  const [maxPriceInput, setMaxPriceInput] = useState(filters.maxPrice);
+  const [brandInput, setBrandInput] = useState(filters.brand);
 
   // Fetch products
   const { data, isLoading, isFetching } = useGetProductsQuery({
@@ -88,16 +92,28 @@ export default function ItemsPage() {
     });
   }, [filters, router]);
 
-  // Debounced search
+  // Debounced inputs (search, price, brand)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     const timer = setTimeout(() => {
-      setFilters((prev) => ({ ...prev, search: searchInput, page: 1 }));
+      setFilters((prev) => ({
+        ...prev,
+        search: searchInput,
+        minPrice: minPriceInput,
+        maxPrice: maxPriceInput,
+        brand: brandInput,
+        page: 1,
+      }));
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchInput]);
+  }, [searchInput, minPriceInput, maxPriceInput, brandInput]);
 
-  // Handle filter changes
+  // Handle filter changes (non-debounced like category, rating, sort)
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value, page: 1 }));
   };
@@ -105,6 +121,9 @@ export default function ItemsPage() {
   // Clear all filters
   const clearFilters = () => {
     setSearchInput("");
+    setMinPriceInput("");
+    setMaxPriceInput("");
+    setBrandInput("");
     setFilters({
       search: "",
       category: "",
@@ -153,8 +172,8 @@ export default function ItemsPage() {
     { value: "1", label: "1★ & above" },
   ];
 
-  // Filter sidebar content (shared between desktop & mobile)
-  const FilterContent = () => (
+  // Filter content as JSX variable (NOT a component to prevent remounting)
+  const filterContent = (
     <div className="space-y-6">
       {/* Categories */}
       <div className="space-y-3">
@@ -199,8 +218,8 @@ export default function ItemsPage() {
           <Input
             type="number"
             placeholder="Min"
-            value={filters.minPrice}
-            onChange={(e) => handleFilterChange("minPrice", e.target.value)}
+            value={minPriceInput}
+            onChange={(e) => setMinPriceInput(e.target.value)}
             className="h-9"
             min="0"
           />
@@ -208,8 +227,8 @@ export default function ItemsPage() {
           <Input
             type="number"
             placeholder="Max"
-            value={filters.maxPrice}
-            onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
+            value={maxPriceInput}
+            onChange={(e) => setMaxPriceInput(e.target.value)}
             className="h-9"
             min="0"
           />
@@ -226,8 +245,8 @@ export default function ItemsPage() {
         <Input
           type="text"
           placeholder="Filter by brand..."
-          value={filters.brand}
-          onChange={(e) => handleFilterChange("brand", e.target.value)}
+          value={brandInput}
+          onChange={(e) => setBrandInput(e.target.value)}
           className="h-9"
         />
       </div>
@@ -344,7 +363,7 @@ export default function ItemsPage() {
               <SelectTrigger className="w-[180px] h-10">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-background py-2">
                 {sortOptions.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
@@ -354,7 +373,11 @@ export default function ItemsPage() {
             </Select>
 
             {/* Mobile Filter Toggle */}
-            <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+            <Sheet
+              className="bg-background"
+              open={mobileFiltersOpen}
+              onOpenChange={setMobileFiltersOpen}
+            >
               <SheetTrigger asChild>
                 <Button
                   variant="outline"
@@ -369,13 +392,14 @@ export default function ItemsPage() {
                   )}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-80 overflow-y-auto">
+              <SheetContent
+                side="left"
+                className="w-80 overflow-y-auto px-2 bg-background"
+              >
                 <SheetHeader>
                   <SheetTitle>Filters</SheetTitle>
                 </SheetHeader>
-                <div className="mt-6">
-                  <FilterContent />
-                </div>
+                <div className="mt-6">{filterContent}</div>
               </SheetContent>
             </Sheet>
           </div>
@@ -414,7 +438,12 @@ export default function ItemsPage() {
             {filters.brand && (
               <Badge variant="secondary" className="gap-1">
                 Brand: {filters.brand}
-                <button onClick={() => handleFilterChange("brand", "")}>
+                <button
+                  onClick={() => {
+                    setBrandInput("");
+                    handleFilterChange("brand", "");
+                  }}
+                >
                   <X className="h-3 w-3" />
                 </button>
               </Badge>
@@ -425,8 +454,14 @@ export default function ItemsPage() {
                 Price: ${filters.minPrice || "0"} - ${filters.maxPrice || "∞"}
                 <button
                   onClick={() => {
-                    handleFilterChange("minPrice", "");
-                    handleFilterChange("maxPrice", "");
+                    setMinPriceInput("");
+                    setMaxPriceInput("");
+                    setFilters((prev) => ({
+                      ...prev,
+                      minPrice: "",
+                      maxPrice: "",
+                      page: 1,
+                    }));
                   }}
                 >
                   <X className="h-3 w-3" />
@@ -466,7 +501,7 @@ export default function ItemsPage() {
                   <Badge variant="secondary">{activeFilterCount}</Badge>
                 )}
               </div>
-              <FilterContent />
+              {filterContent}
             </div>
           </aside>
 
@@ -547,7 +582,6 @@ export default function ItemsPage() {
                 {/* Page Numbers */}
                 {Array.from({ length: pagination.pages }, (_, i) => i + 1)
                   .filter((page) => {
-                    // Show first, last, current, and neighbors
                     return (
                       page === 1 ||
                       page === pagination.pages ||
@@ -556,7 +590,6 @@ export default function ItemsPage() {
                   })
                   .map((page, index, arr) => (
                     <div key={page} className="flex items-center">
-                      {/* Ellipsis */}
                       {index > 0 && arr[index - 1] !== page - 1 && (
                         <span className="px-2 text-muted-foreground">...</span>
                       )}

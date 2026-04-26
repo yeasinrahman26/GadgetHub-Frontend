@@ -92,15 +92,15 @@ export default function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden h-9 w-9">
+        <Button variant="ghost" size="icon" className="md:hidden h-9 w-9 ">
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-80 p-0">
+      <SheetContent side="left" className="w-80 p-0 bg-background ">
         <SheetHeader className="px-6 py-4 border-b">
           <SheetTitle className="flex items-center gap-2">
-            <div className="bg-primary rounded-lg p-1.5">
+            <div className="bg-primary  rounded-lg p-1.5">
               <Zap className="h-5 w-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold">

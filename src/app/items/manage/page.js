@@ -219,7 +219,7 @@ function ManageProductsContent() {
                 <SelectTrigger className="w-[180px] h-10">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background py-2">
                   <SelectItem value="-createdAt">Newest First</SelectItem>
                   <SelectItem value="createdAt">Oldest First</SelectItem>
                   <SelectItem value="price">Price: Low → High</SelectItem>
@@ -550,7 +550,7 @@ function ManageProductsContent() {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-background">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />

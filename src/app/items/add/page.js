@@ -546,7 +546,7 @@ function AddProductContent() {
                         placeholder="0.00"
                         value={formData.price}
                         onChange={handleChange}
-                        className={`pl-10 ${
+                        className={`pl-10 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                           errors.price
                             ? "border-destructive focus-visible:ring-destructive"
                             : ""
@@ -617,9 +617,13 @@ function AddProductContent() {
                       >
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-background p-2">
                         {categories.map((cat) => (
-                          <SelectItem key={cat._id} value={cat._id}>
+                          <SelectItem
+                            className="py-2 border-b rounded-none hover:rounded-lg"
+                            key={cat._id}
+                            value={cat._id}
+                          >
                             {cat.name}
                           </SelectItem>
                         ))}

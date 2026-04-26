@@ -3,17 +3,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        border: "oklch(var(--border) / <alpha-value>)",
-        background: "oklch(var(--background) / <alpha-value>)",
-        foreground: "oklch(var(--foreground) / <alpha-value>)",
-        ring: "oklch(var(--ring) / <alpha-value>)",
+        border: "hsl(var(--border) / <alpha-value>)",
+        background: "hsl(var(--background) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
+        ring: "hsl(var(--ring) / <alpha-value>)",
 
-        // ✅ ADD THESE (this fixes your error)
-        muted: "oklch(var(--muted) / <alpha-value>)",
-        "muted-foreground": "oklch(var(--muted-foreground) / <alpha-value>)",
-        primary: "oklch(var(--primary) / <alpha-value>)",
-        "primary-foreground":
-          "oklch(var(--primary-foreground) / <alpha-value>)",
+        muted: "hsl(var(--muted) / <alpha-value>)",
+        "muted-foreground": "hsl(var(--muted-foreground) / <alpha-value>)",
+        primary: "hsl(var(--primary) / <alpha-value>)",
+        "primary-foreground": "hsl(var(--primary-foreground) / <alpha-value>)",
       },
     },
   },

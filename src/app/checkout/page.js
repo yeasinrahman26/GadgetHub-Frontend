@@ -312,14 +312,13 @@ export default function CheckoutPage() {
                   variant="ghost"
                   className="gap-2 text-destructive hover:text-destructive"
                   onClick={() => {
-                    if (
-                      window.confirm(
-                        "Are you sure you want to clear your cart?",
-                      )
-                    ) {
+                    
                       dispatch(clearCart());
-                      toast.success("Cart cleared");
-                    }
+                      (toast.error("Cart cleared"),
+                        {
+                          theme: "colored",
+                        });
+                    
                   }}
                 >
                   <Trash2 className="h-4 w-4" />

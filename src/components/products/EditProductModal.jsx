@@ -236,8 +236,10 @@ export default function EditProductModal({ product, open, onClose }) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl bg-black border border-gray-600
-       max-h-[90vh]     overflow-y-auto rounded-lg p-6">
+      <DialogContent
+        className="max-w-3xl bg-background border border-gray-600
+       max-h-[90vh]     overflow-y-auto rounded-lg p-6"
+      >
         <DialogHeader>
           <DialogTitle className="text-xl">Edit Product</DialogTitle>
         </DialogHeader>
@@ -385,7 +387,7 @@ export default function EditProductModal({ product, open, onClose }) {
                   >
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background py-2">
                     {categories.map((cat) => (
                       <SelectItem key={cat._id} value={cat._id}>
                         {cat.name}

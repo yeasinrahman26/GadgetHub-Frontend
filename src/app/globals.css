@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 24.6 95% 53.1%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
-  }
+:root {
+  --background: 138 30% 98%;
+  --foreground: 150 20% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 150 20% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 150 20% 10%;
+  --primary: 158 64% 35%;           /* emerald green */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 138 40% 93%;
+  --secondary-foreground: 158 64% 20%;
+  --muted: 138 20% 93%;
+  --muted-foreground: 150 10% 45%;
+  --accent: 43 96% 50%;             /* golden accent */
+  --accent-foreground: 40 30% 10%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 138 20% 88%;
+  --input: 138 20% 88%;
+  --ring: 158 64% 35%;
+  --radius: 0.5rem;
+}
 
   .dark {
     --background: 222.2 84% 4.9%;

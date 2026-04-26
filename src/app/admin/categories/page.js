@@ -309,7 +309,7 @@ function CategoriesContent() {
                     <Button
                       variant="secondary"
                       size="icon"
-                      className="h-9 w-9"
+                      className="h-9 bg-emerald-500 text-white w-9"
                       onClick={() => openEditForm(category)}
                     >
                       <Pencil className="h-4 w-4" />
@@ -317,7 +317,7 @@ function CategoriesContent() {
                     <Button
                       variant="destructive"
                       size="icon"
-                      className="h-9 w-9"
+                      className="h-9 bg-red-600 text-white w-9"
                       onClick={() => handleDeleteClick(category)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -375,7 +375,7 @@ function CategoriesContent() {
 
       {/* Create/Edit Form Dialog */}
       <Dialog open={showForm} onOpenChange={closeForm}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg bg-background">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FolderOpen className="h-5 w-5 text-primary" />
@@ -451,7 +451,7 @@ function CategoriesContent() {
                   {/* Change image button */}
                   <label
                     htmlFor="cat-image"
-                    className="absolute bottom-2 right-2 bg-secondary text-secondary-foreground rounded-lg px-3 py-1.5 text-xs font-medium cursor-pointer opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1"
+                    className="absolute bg-black text-white bottom-2 right-2 bg-secondary text-secondary-foreground rounded-lg px-3 py-1.5 text-xs font-medium cursor-pointer opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1"
                   >
                     <ImageIcon className="h-3.5 w-3.5" />
                     Change
@@ -517,7 +517,7 @@ function CategoriesContent() {
                   </>
                 ) : (
                   <>
-                    <Save className="h-4 w-4" />
+                    <Save className="h-4 w-4 " />
                     {editTarget ? "Save Changes" : "Create Category"}
                   </>
                 )}
@@ -529,7 +529,7 @@ function CategoriesContent() {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-background">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />

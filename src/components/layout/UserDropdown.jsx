@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   User,
   Package,
@@ -26,9 +26,14 @@ import {
 } from "lucide-react";
 
 export default function UserDropdown() {
+  const [mounted, setMounted] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -36,7 +41,6 @@ export default function UserDropdown() {
     router.push("/");
   };
 
-  // Get initials for avatar fallback
   const getInitials = (name) => {
     return name
       ?.split(" ")
@@ -46,31 +50,35 @@ export default function UserDropdown() {
       .slice(0, 2);
   };
 
+  // Don't render anything until client-side to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="hidden md:flex items-center gap-2 px-2 py-1.5">
+        <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+        <div className="hidden md:block h-4 w-16 rounded bg-muted animate-pulse" />
+      </div>
+    );
+  }
+
   const isMod = userInfo?.role === "mod" || userInfo?.role === "admin";
   const isAdmin = userInfo?.role === "admin";
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex items-center gap-2 px-2 hover:bg-accent/50"
-        >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={userInfo?.avatar} alt={userInfo?.name} />
-            <AvatarFallback className="bg-primary text-primary-foreground text-xs">
-              {getInitials(userInfo?.name)}
-            </AvatarFallback>
-          </Avatar>
-          <span className="hidden md:inline-block text-sm font-medium max-w-[100px] truncate">
-            {userInfo?.name}
-          </span>
-          <ChevronDown className="h-3 w-3 opacity-50" />
-        </Button>
+      <DropdownMenuTrigger className="hidden md:flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent/50 outline-none">
+        <Avatar className="h-8 w-8">
+          <AvatarImage src={userInfo?.avatar} alt={userInfo?.name} />
+          <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+            {getInitials(userInfo?.name)}
+          </AvatarFallback>
+        </Avatar>
+        <span className="hidden md:inline-block text-sm font-medium max-w-[100px] truncate">
+          {userInfo?.name}
+        </span>
+        <ChevronDown className="h-3 w-3 opacity-50" />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56">
-        {/* User Info */}
+      <DropdownMenuContent align="end" className="w-56 z-[100] bg-background">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{userInfo?.name}</p>
@@ -85,7 +93,6 @@ export default function UserDropdown() {
 
         <DropdownMenuSeparator />
 
-        {/* User Links */}
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => router.push("/profile")}
@@ -110,11 +117,9 @@ export default function UserDropdown() {
           Settings
         </DropdownMenuItem>
 
-        {/* Mod/Admin Links */}
         {isMod && (
           <>
             <DropdownMenuSeparator />
-
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => router.push("/items/add")}
@@ -122,7 +127,6 @@ export default function UserDropdown() {
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Product
             </DropdownMenuItem>
-
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => router.push("/items/manage")}
@@ -133,11 +137,9 @@ export default function UserDropdown() {
           </>
         )}
 
-        {/* Admin Links */}
         {isAdmin && (
           <>
             <DropdownMenuSeparator />
-
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => router.push("/admin")}
@@ -150,7 +152,6 @@ export default function UserDropdown() {
 
         <DropdownMenuSeparator />
 
-        {/* Logout */}
         <DropdownMenuItem
           className="cursor-pointer text-destructive focus:text-destructive"
           onClick={handleLogout}

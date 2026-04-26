@@ -318,7 +318,7 @@ export default function ProductDetailPage() {
                 <Button
                   onClick={handleAddToCart}
                   size="lg"
-                  className="flex-1 gap-2 bg-orange-600 hover:bg-orange-700 text-white"
+                  className="flex-1 gap-2  text-white"
                 >
                   <ShoppingCart className="h-5 w-5" />
                   Add to Cart
