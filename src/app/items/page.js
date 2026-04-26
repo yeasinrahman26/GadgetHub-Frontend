@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/store/api/productApi";
 import { useGetCategoriesQuery } from "@/store/api/categoryApi";
@@ -35,7 +35,7 @@ import {
   Star,
 } from "lucide-react";
 
-export default function ItemsPage() {
+function ItemsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -627,5 +627,19 @@ export default function ItemsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ItemsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <LoadingSpinner size="lg" />
+        </div>
+      }
+    >
+      <ItemsContent />
+    </Suspense>
   );
 }
