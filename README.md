@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛒 GadgetHub — E-Commerce Gadget Store
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.x-000?style=flat-square&logo=express)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+A modern, full-stack e-commerce platform for gadgets and electronics with multi-role access, Google OAuth, dark/light theme, and a powerful admin dashboard.
+
+[🌐 Live Demo](https://gadget-hub-frontend-lime.vercel.app)
+
+[🌐 Backend_Repo ](https://github.com/yeasinrahman26/GadgetHub-Backend)
+
+
+</div>
+
+---
+
+## ✨ Features
+
+### Shopping
+- 🔍 Search, filter (category, brand, price, rating), and sort products
+- 🛒 Persistent cart (localStorage)
+- 📦 Checkout as **Guest** or **Registered User**
+- 📋 Order tracking with visual status progress
+- ⭐ Product reviews & ratings (one per user)
+
+### Authentication
+- 🔐 Custom JWT authentication (no Firebase)
+- 🔑 Google OAuth one-click sign-in
+- 📧 Forgot/Reset password via email
+- 🛡️ Role-based access control (Guest, User, Mod, Admin)
+
+### User Dashboard
+- 👤 Edit profile & upload avatar
+- 📜 View order history with detailed status tracking
+- 🔒 Change password with strength indicator
+
+### Admin Panel
+- 📊 Dashboard with stats (users, products, orders, revenue)
+- 📦 Manage all orders & update status
+- 👥 Manage users & change roles
+- 🏷️ Manage categories (with delete protection)
+- 🛍️ Add/edit/delete any product
+
+### UI/UX
+- 🌙 Dark/Light theme toggle
+- 📱 Fully responsive (mobile, tablet, desktop)
+- 🔔 Toast notifications for all actions
+- ⏳ Loading states & skeletons
+
+---
+
+## 👥 Roles & Permissions
+
+| Action | Guest | User | Mod | Admin |
+|--------|:-----:|:----:|:---:|:-----:|
+| Browse & search products | ✅ | ✅ | ✅ | ✅ |
+| Add to cart & checkout | ✅ | ✅ | ✅ | ✅ |
+| Profile & order history | ─ | ✅ | ✅ | ✅ |
+| Write reviews | ─ | ✅ | ✅ | ✅ |
+| Add/edit own products | ─ | ─ | ✅ | ✅ |
+| Manage categories | ─ | ─ | ✅ | ✅ |
+| Admin dashboard | ─ | ─ | ─ | ✅ |
+| Manage all orders/users | ─ | ─ | ─ | ✅ |
+| Delete any product/user | ─ | ─ | ─ | ✅ |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | Next.js 14 (App Router), Tailwind CSS, Shadcn/UI, Redux Toolkit, RTK Query |
+| **Backend** | Express.js, Node.js (ES Modules), Mongoose |
+| **Database** | MongoDB Atlas |
+| **Auth** | JWT + bcrypt + Google OAuth |
+| **Email** | Nodemailer + Gmail |
+| **Images** | ImgBB API |
+| **Deployment** | Vercel |
+
+---
+
+## 📄 Pages
+
+**Public:** Home, Shop, Product Detail, About, Login, Register, Forgot/Reset Password
+
+**User:** Profile, Order History, Settings, Checkout
+
+**Mod/Admin:** Add Product, Manage Products
+
+**Admin Only:** Dashboard, Manage Orders, Manage Users, Manage Categories
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Frontend
+git clone https://github.com/yeasinrahman26/GadgetHub-Frontend
+cd gadgethub-frontend && npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Backend
+git clone https://github.com/yeasinrahman26/GadgetHub-Backend
+cd gadgethub-backend && npm install
