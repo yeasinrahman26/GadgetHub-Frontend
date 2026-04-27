@@ -29,10 +29,7 @@ A modern, full-stack e-commerce platform for gadgets and electronics with multi-
 |
 |
 ------
-|
--------
-|
-----------
+
 |
 |
 **
