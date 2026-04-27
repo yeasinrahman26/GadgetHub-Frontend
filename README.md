@@ -16,6 +16,14 @@ A modern, full-stack e-commerce platform for gadgets and electronics with multi-
 
 </div>
 
+## Login credentials
+- Admin 
+ Email: admin@gadgethub.com
+ Password: admin123
+
+-Moderator
+Email: mod@gadgethub.com
+Password: mod12345
 ---
 
 ## ✨ Features
